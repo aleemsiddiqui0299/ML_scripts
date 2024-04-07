@@ -26,3 +26,9 @@ dataset = pd.DataFrame(housing.data,columns=housing.feature_names)
 dataset['Price'] = housing.target
 print(dataset.head())
 print(dataset.info())
+
+
+## Summarizing data statistics
+#1. check missing values
+print(dataset.describe())
+print(dataset.isnull().sum())
