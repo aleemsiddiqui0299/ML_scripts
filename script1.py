@@ -19,3 +19,10 @@ print(housing.keys())
 print(housing.target)
 print(housing.feature_names)
 print(housing.target_names)
+
+
+#Preparing dataset with some analysis
+dataset = pd.DataFrame(housing.data,columns=housing.feature_names)
+dataset['Price'] = housing.target
+print(dataset.head())
+print(dataset.info())
