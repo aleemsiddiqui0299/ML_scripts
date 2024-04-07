@@ -11,3 +11,11 @@ n_samples, n_features = X.shape
 
 
 print(f"The dataset consists of {n_samples} samples and {n_features} features")
+# print(X.describe())
+# print(X, y)
+housing = fetch_california_housing()
+print(housing.keys())
+# print(housing.DESCR)
+print(housing.target)
+print(housing.feature_names)
+print(housing.target_names)
