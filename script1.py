@@ -32,3 +32,16 @@ print(dataset.info())
 #1. check missing values
 print(dataset.describe())
 print(dataset.isnull().sum())
+
+### Exploratory Data Analysis
+## Correlation
+## pearson method by default
+print(dataset.corr())
+
+#plot corr matrix
+corr = dataset.corr()
+corr.style.background_gradient(cmap='BrBG')
+
+#Heatmap
+import seaborn
+seaborn.heatmap(corr)
