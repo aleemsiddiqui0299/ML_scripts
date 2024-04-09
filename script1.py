@@ -62,3 +62,16 @@ import seaborn as sns
 
 sns.regplot(x='AveBedrms',y='AveRooms',data=dataset)
 # sns.regplot(x='HouseAge',y='Population', data = dataset)
+
+# Independent and dependent features differentiated
+
+X = dataset.iloc[:,:-1]
+y = dataset.iloc[:,-1]
+print("X head : ",X.head())
+
+# Train test split
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
+print("X train : ",X_train.head())
+print("X test : ",X_test.head())
