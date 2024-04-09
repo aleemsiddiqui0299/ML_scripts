@@ -44,4 +44,16 @@ corr.style.background_gradient(cmap='BrBG')
 
 #Heatmap
 import seaborn
-seaborn.heatmap(corr)
+seaborn.heatmap(corr)   
+
+import matplotlib.pyplot as plt
+
+#scatter plot for individual correlation representation
+# plt.scatter(dataset['HouseAge'], dataset['Population'])
+# plt.xlabel("House Age in years")
+# plt.ylabel("Population")
+
+plt.scatter(dataset['AveBedrms'], dataset['AveRooms'])
+plt.xlabel("Avg bedroom count")
+plt.ylabel("Avg room count")
+plt.legend()
