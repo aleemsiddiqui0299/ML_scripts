@@ -93,3 +93,21 @@ from sklearn.linear_model import LinearRegression
 regression = LinearRegression()
 regression.fit(X_train,y_train)
 
+# print intercept & coeff
+
+print(regression.coef_)
+print(regression.intercept_)
+print(regression.get_params())
+
+# Prediction with test data
+y_test_pred = regression.predict(X_test)
+print(y_test_pred) 
+
+# compare predictions
+plt.scatter(y_test_pred, y_test)
+
+# residuals
+residual = y_test - y_test_pred
+
+# sns.displot(residual, kind = 'kde')
+plt.scatter(y_test_pred, residual)
