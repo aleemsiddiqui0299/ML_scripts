@@ -111,3 +111,20 @@ residual = y_test - y_test_pred
 
 # sns.displot(residual, kind = 'kde')
 plt.scatter(y_test_pred, residual)
+
+# validating performance by metrics
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+import numpy as np
+
+print("MAE : ",mean_absolute_error(y_test, y_test_pred))
+print("MSE : ",mean_squared_error(y_test, y_test_pred))
+print("RMSE : ",np.sqrt(mean_squared_error(y_test, y_test_pred)))
+
+# R square and adjusted R square
+from sklearn.metrics import r2_score
+score = r2_score(y_test, y_test_pred)
+print("R2 SCORE: ", score)
+
+#adj R2 = 1-[(1-R2)*(n-1)/(n-k-1)]
+adj_r2 = 1 - (1-score)*(len(y_test)-1)/(len(y_test)-X_test.shape[1]-1)
+print("Adj R2 score : ", adj_r2)
