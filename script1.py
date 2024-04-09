@@ -57,3 +57,8 @@ plt.scatter(dataset['AveBedrms'], dataset['AveRooms'])
 plt.xlabel("Avg bedroom count")
 plt.ylabel("Avg room count")
 plt.legend()
+
+import seaborn as sns
+
+sns.regplot(x='AveBedrms',y='AveRooms',data=dataset)
+# sns.regplot(x='HouseAge',y='Population', data = dataset)
