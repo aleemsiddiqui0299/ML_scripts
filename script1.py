@@ -75,3 +75,21 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
 print("X train : ",X_train.head())
 print("X test : ",X_test.head())
+
+# Standardize dataset
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+
+X_train= scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+print("X train : ",X_train.shape)
+print("X test : ",X_test.shape)
+
+# Model training
+
+from sklearn.linear_model import LinearRegression
+regression = LinearRegression()
+regression.fit(X_train,y_train)
+
