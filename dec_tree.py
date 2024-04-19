@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.externals import joblib
 
 iris = load_iris()
 X = iris.data
@@ -33,3 +34,6 @@ pipeline.fit(X_train, y_train)
 test_predictions = pipeline.predict(X_test)
 acc = accuracy_score(y_test, test_predictions)
 print("Accuracy : ", acc)
+
+print("Saving model pipeline")
+joblib.dump(pipeline,"decision_tree_model.pkl")
