@@ -29,3 +29,7 @@ pipeline = Pipeline([
 
 # Fit the pipeline on the training data
 pipeline.fit(X_train, y_train)
+
+test_predictions = pipeline.predict(X_test)
+acc = accuracy_score(y_test, test_predictions)
+print("Accuracy : ", acc)
