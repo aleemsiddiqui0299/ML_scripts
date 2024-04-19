@@ -1,6 +1,11 @@
 import numpy as np
 import pandas as pd
 from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
 iris = load_iris()
 X = iris.data
