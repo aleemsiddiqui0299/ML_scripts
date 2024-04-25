@@ -8,3 +8,4 @@ import pandas as pd
 from sklearn.datasets import  fetch_openml
 
 from sklearn.model_selection import train_test_split, GridSearchCV
+print("imported dependencies")
