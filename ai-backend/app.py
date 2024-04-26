@@ -13,8 +13,7 @@ def get_db_details():
         client = MongoClient('')
         db = client['samle_mflix']
         collection = db['movies']
-        for doc in collection.find_one():
-            print("Document 1: "+doc)
+        print("Document 1: "+str(collection.find_one()))
     except Exception as e:
         print("Exception while connecting db"+str(e))
 
