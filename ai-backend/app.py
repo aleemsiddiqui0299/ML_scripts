@@ -6,18 +6,23 @@ from sklearn.linear_model import LogisticRegression
 
 app = Flask(__name__)
 
+client , db, collection = None, None, None
 
 def get_db_details():
     try:
-        client , db, collection = None, None, None
         client = MongoClient('')
-        db = client['db_name']
+        db = client['samle_mflix']
         collection = db['movies']
+        for doc in collection.find_one():
+            print("Document 1: "+doc)
     except Exception as e:
-        print(e)
+        print("Exception while connecting db"+str(e))
 
 @app.route('/hello', methods=['GET'])
 def hello():
+    print("Getting doc")
+    get_db_details()
+    print("Returning msg")
     return jsonify({"message":"Hello World"})
 
 if __name__ == '__main__':
