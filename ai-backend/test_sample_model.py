@@ -8,15 +8,6 @@ import joblib
 from tqdm import tqdm
 
 
-print(X_train_features.shape, X_test_features.shape)
-clf = RandomForestClassifier(n_estimators=100,random_state=42)
-with tqdm(total=clf.n_estimators) as pbar:
-    print("Training the model...")
-    for _ in range(clf.n_estimators):
-        clf.fit(X_train_features, y_train)
-        pbar.update(1)
-print("Model Training completed.")
-
 def load_data():
     data = pd.read_csv('movies_data.csv')
     print(data.describe())
@@ -33,10 +24,17 @@ def extract_features(X_train, X_test):
     vectorizer = TfidfVectorizer(max_features=1000)
     X_train_features = vectorizer.fit_transform(X_train)
     X_test_features = vectorizer.transform(X_test)
+    print(X_train_features.shape, X_test_features.shape)
     return vectorizer, X_train_features, X_test_features
 
 def train_model(X_train, y_train):
-    pass
+    clf = RandomForestClassifier(n_estimators=100,random_state=42)
+    with tqdm(total=clf.n_estimators) as pbar:
+        print("Training the model...")
+        for _ in range(clf.n_estimators):
+            clf.fit(X_train, y_train)
+            pbar.update(1)
+    print("Model Training completed.")
 
 def make_predictions(model, X_test):
     pass
