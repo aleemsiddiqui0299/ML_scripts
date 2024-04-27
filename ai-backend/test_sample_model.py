@@ -37,13 +37,14 @@ def train_model(X_train, y_train):
     print("Model Training completed.")
 
 def make_predictions(model, X_test):
-    pass
+    predictions = model.predict(X_test)
+    return predictions
 
 def evaluate_model(y_true, y_pred):
-    pass
+    accuracy = accuracy_score(y_true, y_pred)
 
 def save_model(model, filename):
-    pass
+    joblib.dump(model, filename)
 
 def load_model(filename):
     model = joblib.load(filename)
