@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import asyncio
 import aiohttp
+from test_sample_model import *
 
 app = Flask(__name__)
 
@@ -36,8 +37,7 @@ def hello():
 def predict_sentiment():
     data = request.get_json(force=True)
     review = data['review']
-    #extract features
-    #make prediction
+    sentiment = get_sentiment(review)
     return jsonify({'sentiment':'positive'})
 
 if __name__ == '__main__':
