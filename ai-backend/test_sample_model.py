@@ -20,7 +20,7 @@ X_test_features = vectorizer.transform(X_test)
 
 print(X_train_features.shape, X_test_features.shape)
 clf = RandomForestClassifier(n_estimators=100,random_state=42)
-with tqdm(total=len(X_train)) as pbar:
+with tqdm(total=clf.n_estimators) as pbar:
     print("Training the model...")
     for _ in range(clf.n_estimators):
         clf.fit(X_train_features, y_train)
