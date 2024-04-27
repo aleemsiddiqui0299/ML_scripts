@@ -14,8 +14,9 @@ def load_data():
     return data
 
 def split_data(data):
-    X = data['review'][:1000]
-    y = data['sentiment'][:1000]
+    X = data['review'][:5000]
+    y = data['sentiment'][:5000]
+    # y = [1 if y == 'positive' else 0].reshape(-1,1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     return X_train, X_test, y_train, y_test 
 
@@ -35,6 +36,7 @@ def train_model(X_train, y_train):
             clf.fit(X_train, y_train)
             pbar.update(1)
     print("Model Training completed.")
+    return clf
 
 def make_predictions(model, X_test):
     predictions = model.predict(X_test)
@@ -59,7 +61,7 @@ def retrain_model(model, X_train, y_train):
 
 if __name__ == "__main__":
 
-    data = load_data
+    data = load_data()
     X_train, X_test, y_train, y_test = split_data(data)
     vectorizer, X_train_features , X_test_features = extract_features(X_train, X_test)
     model = train_model(X_train_features, y_train)
