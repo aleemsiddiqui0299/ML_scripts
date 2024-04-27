@@ -27,3 +27,32 @@ with tqdm(total=clf.n_estimators) as pbar:
         pbar.update(1)
 print("Model Training completed.")
 
+def load_data():
+    pass
+
+def split_data(data):
+    pass
+
+def extract_features(X_train, X_test):
+    pass
+
+def train_model(X_train, y_train):
+    pass
+
+def make_predictions(model, X_test):
+    pass
+
+def evaluate_model(y_true, y_pred):
+    pass
+
+def save_model(model, filename):
+    pass
+
+def load_model(filename):
+    model = joblib.load(filename)
+    return model
+
+def retrain_model(model, X_train, y_train):
+    model.fit(X_train, y_train)
+    return model
+
