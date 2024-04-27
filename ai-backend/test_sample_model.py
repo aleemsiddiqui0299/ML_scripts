@@ -42,6 +42,7 @@ def make_predictions(model, X_test):
 
 def evaluate_model(y_true, y_pred):
     accuracy = accuracy_score(y_true, y_pred)
+    print("Model Accuracy : ", accuracy)
 
 def save_model(model, filename):
     joblib.dump(model, filename)
@@ -54,3 +55,15 @@ def retrain_model(model, X_train, y_train):
     model.fit(X_train, y_train)
     return model
 
+
+
+if __name__ == "__main__":
+
+    data = load_data
+    X_train, X_test, y_train, y_test = split_data(data)
+    vectorizer, X_train_features , X_test_features = extract_features(X_train, X_test)
+    model = train_model(X_train_features, y_train)
+    predictions = make_predictions(model, X_test_features)
+    evaluate_model(y_test, predictions)
+    save_model(model, "movie_model.pkl")
+    loaded_model = load_model("movie_model.pkl")
