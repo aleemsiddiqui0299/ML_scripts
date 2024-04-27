@@ -32,6 +32,14 @@ def hello():
     print("Returning msg")
     return jsonify({"message":"Hello World"})
 
+@app.route('/sentiment', methods=['POST'])
+def predict_sentiment():
+    data = request.get_json(force=True)
+    review = data['review']
+    #extract features
+    #make prediction
+    return jsonify({'sentiment':'positive'})
+
 if __name__ == '__main__':
     app.run(debug = True)
 
