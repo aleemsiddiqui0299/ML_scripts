@@ -10,8 +10,8 @@ from tqdm import tqdm
 data = pd.read_csv('movies_data.csv')
 print(data.describe())
 
-X = data['review'][:100]
-y = data['sentiment'][:100]
+X = data['review'][:1000]
+y = data['sentiment'][:1000]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 vectorizer = TfidfVectorizer(max_features=1000)
@@ -19,6 +19,11 @@ X_train_features = vectorizer.fit_transform(X_train)
 X_test_features = vectorizer.transform(X_test)
 
 print(X_train_features.shape, X_test_features.shape)
-
 clf = RandomForestClassifier(n_estimators=100,random_state=42)
-clf.fit(X_train_features, y_train)
+with tqdm(total=len(X_train)) as pbar:
+    print("Training the model...")
+    for _ in range(clf.n_estimators):
+        clf.fit(X_train_features, y_train)
+        pbar.update(1)
+print("Model Training completed.")
+
