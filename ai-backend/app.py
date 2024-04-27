@@ -38,7 +38,7 @@ def predict_sentiment():
     data = request.get_json(force=True)
     review = data['review']
     sentiment = get_sentiment(review)
-    return jsonify({'sentiment':'positive'})
+    return jsonify({'sentiment':sentiment})
 
 if __name__ == '__main__':
     app.run(debug = True)
