@@ -28,6 +28,7 @@ def extract_features(X_train, X_test):
     print(X_train_features.shape, X_test_features.shape)
     return vectorizer, X_train_features, X_test_features
 
+
 def train_model(X_train, y_train):
     clf = RandomForestClassifier(n_estimators=100,random_state=42)
     with tqdm(total=clf.n_estimators) as pbar:
@@ -57,7 +58,14 @@ def retrain_model(model, X_train, y_train):
     model.fit(X_train, y_train)
     return model
 
-
+def get_sentiment(review):
+    data = load_data()
+    X_train, X_test, y_train, y_test = split_data(data)
+    vectorizer, X_train_features , X_test_features = extract_features(X_train, X_test)
+    review_features = vectorizer.transform([review])
+    model = load_model("movie_model.pkl")
+    prediction = model.predict(review_features)
+    return prediction[0]
 
 if __name__ == "__main__":
 
