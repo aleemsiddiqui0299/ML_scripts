@@ -3,7 +3,9 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from test_sample_model import get_sentiment
+from test_sample_model import get_sentiment, apply_training
+import asyncio
+import aiohttp
 
 app = Flask(__name__)
 
@@ -41,6 +43,12 @@ def predict_sentiment():
     sentiment = get_sentiment(review)
     print("Awaiting async response")
     return jsonify({'sentiment':'positive'})
+
+@app.route('/train_model',methods=['GET'])
+def apply_training():
+    print("Training begins")
+    return apply_training('sample-model')
+
 
 if __name__ == '__main__':
     app.run(debug = True)

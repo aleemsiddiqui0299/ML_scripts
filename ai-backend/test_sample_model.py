@@ -6,9 +6,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 import joblib
 from tqdm import tqdm
-import time
-import aiohttp
-import asyncio
+import random
+import string
 
 
 def load_data():
@@ -32,8 +31,11 @@ def extract_features(X_train, X_test):
     return vectorizer, X_train_features, X_test_features
 
 
-def train_model(X_train, y_train,random_state=42, n_estimators=100):
-    clf = RandomForestClassifier(n_estimators=n_estimators,random_state=random_state)
+def train_model(X_train, y_train,random_state=42, n_estimators=100, model=None):
+    if model==None:
+        clf = RandomForestClassifier(n_estimators=n_estimators,random_state=random_state)
+    else:
+        clf = model
     with tqdm(total=clf.n_estimators) as pbar:
         print("Training the model...")
         for _ in range(clf.n_estimators):
@@ -70,12 +72,19 @@ def get_sentiment(review):
     prediction = model.predict(review_features)
     return prediction[0]
 
-def apply_training():
-    data = load_data()
-    X_train, X_test, y_train, y_test = split_data(data)
-    vectorizer, X_train_features , X_test_features = extract_features(X_train, X_test)
-    review_features = vectorizer.transform([review])
-    model = load_model("movie_model-2.pkl")
+def apply_training(name="None"):
+    model_name = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7)) if name ==None else name
+    try:
+        data = load_data()
+        X_train, X_test, y_train, y_test = split_data(data)
+        _ , X_train_features , X_test_features = extract_features(X_train, X_test)
+        model = load_model("movie_model.pkl")
+        model = train_model(X_train=X_train_features, y_train=y_train, model=model)
+        save_model(model, model_name+"-model.pkl")
+        return "Model Training Done"
+    except Exception as e:
+        print("Exception found in applied training : ", e)
+    return "Training Failed"
 
 if __name__ == "__main__":
 
