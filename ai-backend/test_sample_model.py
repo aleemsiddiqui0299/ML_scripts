@@ -16,11 +16,11 @@ def load_data():
     print(data.describe())
     return data
 
-def split_data(data):
-    X = data['review'][:5000]
-    y = data['sentiment'][:5000]
+def split_data(data, random_state = 42, limit = 5000, test_size = 0.2):
+    X = data['review'][:limit]
+    y = data['sentiment'][:limit]
     # y = [1 if y == 'positive' else 0].reshape(-1,1)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     return X_train, X_test, y_train, y_test 
 
 
@@ -32,8 +32,8 @@ def extract_features(X_train, X_test):
     return vectorizer, X_train_features, X_test_features
 
 
-def train_model(X_train, y_train):
-    clf = RandomForestClassifier(n_estimators=100,random_state=42)
+def train_model(X_train, y_train,random_state=42, n_estimators=100):
+    clf = RandomForestClassifier(n_estimators=n_estimators,random_state=random_state)
     with tqdm(total=clf.n_estimators) as pbar:
         print("Training the model...")
         for _ in range(clf.n_estimators):
@@ -69,6 +69,13 @@ def get_sentiment(review):
     model = load_model("movie_model.pkl")
     prediction = model.predict(review_features)
     return prediction[0]
+
+def apply_training():
+    data = load_data()
+    X_train, X_test, y_train, y_test = split_data(data)
+    vectorizer, X_train_features , X_test_features = extract_features(X_train, X_test)
+    review_features = vectorizer.transform([review])
+    model = load_model("movie_model-2.pkl")
 
 if __name__ == "__main__":
 
