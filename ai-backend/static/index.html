@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Training Progress</title>
+</head>
+<body>
+    <div id="progress"><h1>HERE</h1></div>
+
+    <script>
+        const progressElement = document.getElementById('progress');
+        // Update the URL to point to your Flask server running on port 5000
+        const eventSource = new EventSource('http://localhost:5000/train_model');
+
+        eventSource.onmessage = function(event) {
+            progressElement.innerHTML += event.data + '<br>';
+        };
+
+        eventSource.onerror = function(event) {
+            console.error("EventSource failed:", event);
+            eventSource.close();
+        };
+    </script>
+</body>
+</html>

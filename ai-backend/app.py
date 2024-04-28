@@ -1,9 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask,Response, request, jsonify, stream_with_context
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from test_sample_model import get_sentiment, apply_training
+from test_sample_model import get_sentiment, apply_training, train_model_stream
 import asyncio
 import aiohttp
 
@@ -45,10 +45,11 @@ def predict_sentiment():
     return jsonify({'sentiment':'positive'})
 
 @app.route('/train_model',methods=['GET'])
-def apply_training():
+def applying_training():
     print("Training begins")
-    return apply_training('sample-model')
-
+    # status = apply_training('sample-demo')
+    # return jsonify({'status':status})
+    return Response(stream_with_context(train_model_stream()),content_type='text/event-stream')
 
 if __name__ == '__main__':
     app.run(debug = True)
